@@ -1257,4 +1257,21 @@ RelToAbs(root, dir, s = "\") {
 	}
 	Return, pr . root . s . dir
 }
-
+GetDistanceFromPoint2D(x, y){
+	GetPlayerPos(pos_x, pos_y, pos_z, pos_r)
+	return sqrt((pos_x - x) ** 2 + (pos_y - y) ** 2)
+}
+PlayerInput(text){
+	s := A_IsSuspended
+	Suspend On
+	KeyWait Enter
+	BlockChatInput() ;Auskommentieren, falls die API nicht genutzt wird
+	SendInput t^a{backspace}%text%
+	Input, var, v, {enter}
+	SendInput ^a{backspace 100}{enter}
+	Sleep, 20
+	UnblockChatInput() ;Auskommentieren, falls die API nicht genutzt wird
+	if(!s)
+		Suspend Off
+	return var
+}
